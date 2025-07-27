@@ -6,10 +6,6 @@ public class SubTask extends Task {
         this.taskId = taskId;
     }
 
-    public SubTask(Integer id, int taskId, String name, String description, TasksStatus.Status status) {
-        super(id, name, description, status);
-        this.taskId = taskId;
-    }
 
     @Override
     public String toString() {

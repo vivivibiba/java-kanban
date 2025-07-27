@@ -24,19 +24,20 @@ public class Manager {
     }
 
     public static void createSubTask(int id, String name, String description) { // добавление Подзадач
-        Id += 1;
-        if (Manager.Tasks.get(id).getClass() == Epic.class) {   // добавление Подзадач в Эпик
-            HashMap<Integer, SubTask> sub = new HashMap<>();
-            sub = ((Epic) Tasks.get(id)).subtasks;                          //  ! ((Epic) Tasks.get(id)).subtasks !
-            sub.put(Id, new SubTask(id, Id, name ,description));
-            Tasks.put(id, new Epic(Manager.Tasks.get(id), sub));
-        } else {
-            HashMap<Integer, SubTask> sub = new HashMap<>();     // добавление Подзадач в Задачу
-            sub.put(Id, new SubTask(id, Id, name ,description));
-            Tasks.put(id, new Epic(Manager.Tasks.get(id), sub));
+        if (Tasks.containsKey(id)) {
+            Id += 1;
+            if (Manager.Tasks.get(id).getClass() == Epic.class) {   // добавление Подзадач в Эпик
+                HashMap<Integer, SubTask> sub;
+                sub = ((Epic) Tasks.get(id)).subtasks;                          //  ! ((Epic) Tasks.get(id)).subtasks !
+                sub.put(Id, new SubTask(id, Id, name, description));
+                Tasks.put(id, new Epic(Manager.Tasks.get(id), sub));
+            } else {
+                HashMap<Integer, SubTask> sub = new HashMap<>();     // добавление Подзадач в Задачу
+                sub.put(Id, new SubTask(id, Id, name, description));
+                Tasks.put(id, new Epic(Manager.Tasks.get(id), sub));
+            }
+            TasksSubtasks.put(Id, id);
         }
-
-        TasksSubtasks.put(Id, id);
     }
 
     public static void delSubTask(int id) {  // удаление по id
@@ -54,10 +55,12 @@ public class Manager {
                 TasksSubtasks.remove(id);
             }
         } else {    // удалить Задачу с Подзадачами
-            for (SubTask subTask : ((Epic) Tasks.get(id)).subtasks.values()) {
-                TasksSubtasks.remove(subTask.taskId);
+            if (Tasks.containsKey(id)) {
+                for (SubTask subTask : ((Epic) Tasks.get(id)).subtasks.values()) {
+                    TasksSubtasks.remove(subTask.taskId);
+                }
+                Tasks.remove(id);
             }
-            Tasks.remove(id);
         }
     }
 
@@ -65,8 +68,10 @@ public class Manager {
         if (TasksSubtasks.containsKey(id)) {
             ((Epic) Tasks.get(TasksSubtasks.get(id))).subtasks.get(id).status = status;
         } else {
-            if (Tasks.get(id).getClass() != Epic.class) {
-                Tasks.get(id).status = status;
+            if (Tasks.containsKey(id)) {
+                if (Tasks.get(id).getClass() != Epic.class) {
+                    Tasks.get(id).status = status;
+                }
             }
         }
     }

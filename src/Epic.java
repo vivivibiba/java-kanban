@@ -3,20 +3,7 @@ import java.util.HashMap;
 import java.util.Objects;
 
 public class Epic extends Task {
-
     public HashMap<Integer, SubTask> subtasks = new HashMap<>();
-
-
-
-    public Epic(Integer id, String name, String description) {  // конструктор задач
-        super(id, name, description);
-    }
-
-
-    public Epic(Integer id, String name, String description, TasksStatus.Status status, HashMap<Integer, SubTask> subtasks) {  // конструктор для смены статуса
-        super(id, name, description, status);
-        this.subtasks = subtasks;
-    }
 
     public Epic(Task task, HashMap<Integer, SubTask> subtasks) {   // превращение Задачи в Эпик
         super(task.id, task.name, task.description, task.status);
@@ -49,6 +36,7 @@ public class Epic extends Task {
         return epic.status;
     }
 
+
     @Override
     public String toString() {
         return "Epic{" +
@@ -60,5 +48,4 @@ public class Epic extends Task {
                 ", subtasks=" + subtasks + '\'' +
                 '}';
     }
-
 }

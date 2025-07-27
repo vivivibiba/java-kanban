@@ -24,9 +24,6 @@ public class Main {
                         }
                         if (object.status == status) {
                             System.out.println(object);
-                            if (object.getClass() == Epic.class) {
-                                System.out.println(((Epic) object).subtasks);
-                            }
                             System.out.println("------------");
                         }
                     }
