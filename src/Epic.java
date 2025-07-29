@@ -1,22 +1,20 @@
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Objects;
 
 public class Epic extends Task {
-    public HashMap<Integer, SubTask> subtasks = new HashMap<>();
+    public ArrayList<SubTask> epicSubtasks = new ArrayList<>();
 
-    public Epic(Task task, HashMap<Integer, SubTask> subtasks) {   // превращение Задачи в Эпик
-        super(task.id, task.name, task.description, task.status);
-        this.subtasks = subtasks;
+    public Epic(String name, String description) {   //
+        super(name, description);
     }
 
 
     public static TasksStatus.Status calculateStatus(Epic epic) {
-        if (!Objects.equals(epic.subtasks, new ArrayList<>())) {
+        if (!Objects.equals(epic.epicSubtasks, new ArrayList<>())) {
             int New = 0;
             int done = 0;
 
-            for (SubTask subTask : epic.subtasks.values()) {
+            for (SubTask subTask : epic.epicSubtasks) {
                 if (subTask.status == TasksStatus.Status.NEW) {
                     New += 1;
                 } else if (subTask.status == TasksStatus.Status.IN_PROGRESS) {
@@ -45,7 +43,7 @@ public class Epic extends Task {
                 ", id=" + id + '\'' +
                 ", status=" + status + '\'' +
                 ", Class=" + Epic.class + '\'' +
-                ", subtasks=" + subtasks + '\'' +
+                ", subtasks=" + epicSubtasks + '\'' +
                 '}';
     }
 }

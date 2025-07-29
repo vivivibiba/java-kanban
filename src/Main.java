@@ -1,87 +1,64 @@
-import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            System.out.println("1. Получение списка всех задач.");
-            System.out.println("2. Получение сведений задачи по id.");
-            System.out.println("3. Создать задачу или подзадачу.");
-            System.out.println("4. удаление всех задач.");
-            System.out.println("5. Удаление по id.");
-            System.out.println("6. Обновить статус.");
+        Manager manager = new Manager();
 
-            int command = scanner.nextInt();
+        manager.createTask(new Task("Задача 1", "Задача номер 1"));
+        manager.createTask(new Task("Задача 2", "Задача номер 2"));
 
-            if (command == 1) {
-                System.out.println(Manager.TasksSubtasks);
-                for (TasksStatus.Status status : TasksStatus.getStatus()) {
-                    System.out.println("Задачи со статусом " + status + ":");
-                    for (Task object : Manager.showTasks().values()) {
-                        if (object.getClass() == Epic.class) {
-                            object.status = Epic.calculateStatus((Epic) object);
-                        }
-                        if (object.status == status) {
-                            System.out.println(object);
-                            System.out.println("------------");
-                        }
-                    }
-                    System.out.println();
-                }
-            } else if (command == 2) {
-                System.out.println("id");
-                int id = scanner.nextInt();
-                System.out.println(Manager.showTasksId(id));
+        manager.createEpic(new Epic("Эпик 1", "Эпик номер 1"));
+        manager.createEpic(new Epic("Эпик 2", "Эпик номер 2"));
 
-            } else if (command == 3) {
-                System.out.println("1. Задачу");
-                System.out.println("2. Подзадачу");
-                int TaskOrSubtask = scanner.nextInt();
+        manager.createSubtask(3, new SubTask(3, "Подзадача 1", "Подзадача номер 1",
+                TasksStatus.Status.NEW));
+        manager.createSubtask(4, new SubTask(4, "Подзадача 2", "Подзадача номер 2",
+                TasksStatus.Status.NEW));
+        manager.createSubtask(4, new SubTask(4, "Подзадача 3", "Подзадача номер 3",
+                TasksStatus.Status.NEW));
 
-                String n = scanner.nextLine();
-                System.out.println("Введите название: ");
-                String name = scanner.nextLine();
+        System.out.println(manager.showTasks());
+        System.out.println(manager.showEpics());
+        System.out.println(manager.showSubtasks());
+        System.out.println(manager.getSubtaskId(6));
+        System.out.println("----------------------");
 
-                System.out.println("Введите описание: ");
-                String description = scanner.nextLine();
+        manager.updateSubtask(5, new SubTask("Подзадача 1", "Подзадача номер 1",
+                TasksStatus.Status.DONE));
+        manager.updateSubtask(6, new SubTask("Подзадача 2", "Подзадача номер 2",
+                TasksStatus.Status.DONE));
 
-                if (TaskOrSubtask == 1) {
-                    Manager.createTask(name, description);
-                } else if (TaskOrSubtask == 2) {
-                    System.out.println("id: ");
-                    int id = scanner.nextInt();
-                    Manager.createSubTask(id, name, description);
-                }
+        System.out.println(manager.showEpics());
+        System.out.println(manager.showEpicSubtasks(4));
+        System.out.println(manager.getSubtaskId(6));
+        System.out.println("----------------------");
 
-            } else if (command == 4) {
-                Manager.Tasks.clear();
-                Manager.TasksSubtasks.clear();
+        manager.delSubtask(7);
 
-            } else if (command == 5) {
-                System.out.println("id: ");
-                int delId = scanner.nextInt();
-                Manager.delSubTask(delId);
+        System.out.println(manager.showEpics());
+        System.out.println("----------------------");
 
-            } else if (command == 6) {
-                System.out.println("У задачи с каким id сменить статус: ");
-                int id = scanner.nextInt();
+        manager.delEpic(4);
 
-                System.out.println("На какой статус сменить: \n1. NEW\n2. IN_PROGRESS\n3. DONE");
-                int stat = scanner.nextInt();
-                TasksStatus.Status Status = null;
+        System.out.println(manager.showEpics());
+        System.out.println(manager.showSubtasks());
+        System.out.println("----------------------");
 
-                if (stat == 1) {
-                    Status = TasksStatus.Status.NEW;
-                } else if (stat == 2) {
-                    Status = TasksStatus.Status.IN_PROGRESS;
-                } else if (stat == 3) {
-                    Status = TasksStatus.Status.DONE;
-                } else {
-                    return;
-                }
-                Manager.status(id, Status);
-            }
-        }
+        manager.delEpics();
+
+        System.out.println(manager.showEpics());
+        System.out.println(manager.showSubtasks());
+        System.out.println("----------------------");
+
+        System.out.println(manager.showTasks());
+        System.out.println("----------------------");
+
+        manager.delTask(1);
+
+        System.out.println(manager.showTasks());
+
+        manager.delTasks();
+
+        System.out.println(manager.showTasks());
     }
 }

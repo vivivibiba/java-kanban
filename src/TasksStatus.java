@@ -4,7 +4,6 @@ public class TasksStatus {
         IN_PROGRESS,
         DONE
     }
-
     public static Status[] getStatus() {
         return Status.values();
     }

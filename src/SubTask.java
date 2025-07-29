@@ -1,9 +1,16 @@
 public class SubTask extends Task {
     int taskId;
 
-    public SubTask(int id, int taskId, String name, String description) {
-        super(id, name, description);
-        this.taskId = taskId;
+
+    public SubTask(int id, String name, String description, TasksStatus.Status status) {
+        super(name, description);
+        this.id = id;
+        this.status = status;
+    }
+
+    public SubTask(String name, String description, TasksStatus.Status status) {
+        super(name, description);
+        this.status = status;
     }
 
 
@@ -18,5 +25,4 @@ public class SubTask extends Task {
                 ", Class=" + SubTask.class + '\'' +
                 '}';
     }
-
 }
