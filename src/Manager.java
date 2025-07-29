@@ -59,7 +59,11 @@ public class Manager {
     }
 
     public void updateEpic(Epic epic) {
-        tasks.put(epic.id, epic);
+        for (SubTask subTask : epics.get(epic.id).epicSubtasks) {
+            subtasks.values().remove(subTask);
+        }
+        epics.put(epic.id, epic);
+
     }
 
 
