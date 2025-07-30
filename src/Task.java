@@ -1,8 +1,8 @@
 public class Task {
-    public String name;
-    public String description;  //описание
-    public Integer id;
-    public TasksStatus.Status status = TasksStatus.Status.NEW;
+    protected String name;
+    protected String description;  //описание
+    protected Integer id;
+    protected TasksStatus.Status status = TasksStatus.Status.NEW;
 
     public Task (String name, String description) {  // конструктор задач
         this.name = name;

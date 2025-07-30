@@ -1,5 +1,5 @@
 public class SubTask extends Task {
-    int taskId;
+    protected int taskId;
 
 
     public SubTask(int id, String name, String description, TasksStatus.Status status) {
@@ -8,9 +8,10 @@ public class SubTask extends Task {
         this.status = status;
     }
 
-    public SubTask(String name, String description, TasksStatus.Status status) {
+    public SubTask(String name, String description, TasksStatus.Status status, int taskId) {
         super(name, description);
         this.status = status;
+        this.taskId = taskId;
     }
 
 

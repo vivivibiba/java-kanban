@@ -2,9 +2,9 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Epic extends Task {
-    public ArrayList<SubTask> epicSubtasks = new ArrayList<>();
+    protected ArrayList<SubTask> epicSubtasks = new ArrayList<>();
 
-    public Epic(String name, String description) {   //
+    protected Epic(String name, String description) {   //
         super(name, description);
     }
 

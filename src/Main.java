@@ -21,44 +21,26 @@ public class Main {
         System.out.println(manager.showEpics());
         System.out.println(manager.showSubtasks());
         System.out.println(manager.getSubtaskId(6));
-        System.out.println("----------------------");
+        System.out.println("1 ----------------------");
 
-        manager.updateSubtask(5, new SubTask("Подзадача 1", "Подзадача номер 1",
-                TasksStatus.Status.DONE));
-        manager.updateSubtask(6, new SubTask("Подзадача 2", "Подзадача номер 2",
-                TasksStatus.Status.DONE));
+        manager.updateSubtask(new SubTask("Подзадача 1", "Подзадача номер 1",
+                TasksStatus.Status.DONE, 5));
+        manager.updateSubtask(new SubTask("Подзадача 2", "Подзадача номер 2",
+                TasksStatus.Status.DONE, 6));
 
         System.out.println(manager.showEpics());
         System.out.println(manager.showEpicSubtasks(4));
         System.out.println(manager.getSubtaskId(6));
-        System.out.println("----------------------");
+        System.out.println("2 ----------------------");
 
         manager.delSubtask(7);
 
         System.out.println(manager.showEpics());
-        System.out.println("----------------------");
+        System.out.println("3 ----------------------");
 
         manager.delEpic(4);
 
         System.out.println(manager.showEpics());
         System.out.println(manager.showSubtasks());
-        System.out.println("----------------------");
-
-        manager.delEpics();
-
-        System.out.println(manager.showEpics());
-        System.out.println(manager.showSubtasks());
-        System.out.println("----------------------");
-
-        System.out.println(manager.showTasks());
-        System.out.println("----------------------");
-
-        manager.delTask(1);
-
-        System.out.println(manager.showTasks());
-
-        manager.delTasks();
-
-        System.out.println(manager.showTasks());
     }
 }
